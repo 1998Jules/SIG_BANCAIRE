@@ -1,0 +1,258 @@
+/* =========================
+   VARIABLES DE COULEUR
+========================= */
+:root {
+    --primary-color: #4e73df;   /* Bleu moderne */
+    --primary-dark: #224abe;    /* Bleu foncé pour hover */
+    --secondary-color: #f8f9fc; /* Gris très clair */
+    --text-color: #333;
+    --border-color: #d1d3e2;
+    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   PAGE GLOBALE
+========================= */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Police plus moderne */
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); /* Dégradé léger */
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    color: var(--text-color);
+}
+
+/* =========================
+   CONTENEUR PRINCIPAL
+========================= */
+.container {
+    width: 100%;
+    max-width: 800px;
+}
+
+/* =========================
+   TITRE
+========================= */
+h2 {
+    text-align: center;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+/* Ligne décorative sous le titre */
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+h3 {
+    color: #34495e;
+    margin-top: 25px;
+    padding-left: 10px;
+    border-left: 4px solid var(--primary-color);
+}
+
+/* =========================
+   SECTIONS PLIANTES (ACCORDÉON)
+========================= */
+.section {
+    background: #fff;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-light);
+    overflow: hidden; /* Pour les coins arrondis */
+    transition: box-shadow 0.3s ease;
+}
+
+.section:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+/* En-tête cliquable */
+.section-header {
+    background: #fff;
+    color: var(--primary-color);
+    padding: 18px 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 5px solid var(--primary-color);
+    transition: background 0.2s;
+}
+
+.section-header:hover {
+    background: var(--secondary-color);
+}
+
+/* Flèche indicateur */
+.section-header::after {
+    content: '▼';
+    font-size: 0.8em;
+    transition: transform 0.3s ease;
+}
+
+/* Contenu caché */
+.section-content {
+    background: #fff;
+    padding: 0 25px; /* Padding horizontal uniquement au début */
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+}
+
+/* Contenu actif (ouvert) */
+.section-content.active {
+    max-height: 2000px; /* Assez grand pour contenir le formulaire */
+    padding: 25px; /* Padding complet */
+    border-top: 1px solid #eee;
+}
+
+/* =========================
+   INFO DE RAPPEL (ID, TITRE...)
+========================= */
+.info-ref {
+    background-color: #eef2ff;
+    border-left: 5px solid var(--primary-color);
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: var(--primary-color);
+    border-radius: 0 4px 4px 0;
+    font-size: 0.95rem;
+}
+
+.context {
+    background: #f4f6f9;
+    padding: 10px;
+    border-left: 4px solid var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* =========================
+   FORMULAIRE STYLE CARTE
+========================= */
+form {
+    background: transparent; /* Le fond est géré par .section */
+    padding: 0;
+    margin-top: 0;
+    width: 100%;
+}
+
+/* =========================
+   INPUTS
+========================= */
+form p {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 0; /* Reset margin */
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+/* Effet Focus (quand on clique) */
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.2);
+    outline: none;
+}
+
+/* =========================
+   BOUTON
+========================= */
+button {
+    width: 100%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.1s;
+}
+
+button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px); /* Léger effet de soulèvement */
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* =========================
+   MESSAGES & ALERTES
+========================= */
+p {
+    color: #555;
+}
+
+/* Style pour les messages d'erreur/warning rouges */
+p[style*="color:red"] {
+    background-color: #fff5f5;
+    border-left: 5px solid #e74c3c;
+    color: #c0392b !important;
+    padding: 15px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* =========================
+   RESPONSIVE MOBILE
+========================= */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
+    .section-header {
+        padding: 15px;
+    }
+
+    .section-content.active {
+        padding: 15px;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+}

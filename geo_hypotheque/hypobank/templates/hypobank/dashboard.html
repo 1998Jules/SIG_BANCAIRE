@@ -1,0 +1,76 @@
+l{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - SIF</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+
+<body>
+
+<h1>📊 Dashboard Système Foncier</h1>
+
+<div class="grid">
+
+    <div class="card">
+        <h3>📍 Parcelles</h3>
+        <p>{{ parcelles }}</p>
+    </div>
+
+    <div class="card">
+        <h3>🧾 Propriétaires</h3>
+        <p>{{ proprietaires }}</p>
+    </div>
+
+    <div class="card">
+        <h3>🏷️ Titres</h3>
+        <p>{{ titres }}</p>
+    </div>
+
+    <div class="card">
+        <h3>💰 Hypothèques</h3>
+        <p>{{ hypotheques }}</p>
+    </div>
+
+</div>
+
+<div class="grid">
+
+    <div class="card money">
+        <h3>💵 Montant Total</h3>
+        <p>{{ total_montant }} FCFA</p>
+    </div>
+
+    <div class="card money">
+        <h3>💳 Total Payé</h3>
+        <p>{{ total_paye }} FCFA</p>
+    </div>
+
+    <div class="card money">
+        <h3>📉 Reste</h3>
+        <p>{{ reste }} FCFA</p>
+    </div>
+
+</div>
+
+<div class="grid">
+
+    <div class="card status red">
+        <h3>⏳ En attente</h3>
+        <p>{{ en_attente }}</p>
+    </div>
+
+    <div class="card status orange">
+        <h3>🔄 En cours</h3>
+        <p>{{ en_cours }}</p>
+    </div>
+
+    <div class="card status green">
+        <h3>✅ Remboursé</h3>
+        <p>{{ rembourse }}</p>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enrichir Parcelle</title>
+    <link rel="stylesheet" href="{% static 'css/enrichir.css' %}">
+    <!-- Ajout d'un petit style pour les références -->
+    <style>
+        .info-ref {
+            background-color: #f8f9fa;
+            padding: 8px;
+            border-left: 4px solid #007bff;
+            margin-bottom: 10px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+        
+        /* Un peu de style pour les inputs de date */
+        input[type="date"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2> Gestion de la Parcelle</h2>
+
+    <!-- ===================== -->
+    <!--  PROPRIETAIRE -->
+    <!-- ===================== -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            Ajouter Propriétaire
+        </div>
+
+        <div class="section-content active">
+            <p class="info-ref"> Parcelle ID: {{ parcelle.id }}</p>
+            
+            <form method="post" action="{% url 'ajouter_proprietaire' parcelle.id %}">
+                {% csrf_token %}
+                {{ prop_form.as_p }}
+                <button type="submit">Ajouter</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===================== -->
+    <!--  TITRE FONCIER -->
+    <!-- ===================== -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+            Ajouter Titre Foncier
+        </div>
+
+        <div class="section-content">
+            <p class="info-ref"> Parcelle concernée: {{ parcelle.id }}</p>
+
+            <form method="post" action="{% url 'ajouter_titre' parcelle.id %}">
+                {% csrf_token %}
+                {{ titre_form.as_p }}
+                <button type="submit">Ajouter</button>
+            </form>
+        </div>
+    </div>
+
+    {% with titre=parcelle.titrefoncier_set.first %}
+
+    <!-- ===================== -->
+    <!--  HYPOTHEQUE -->
+    <!-- ===================== -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+             Ajouter Hypothèque
+        </div>
+
+        <div class="section-content">
+            {% if titre %}
+                <p class="info-ref"> Titre Foncier: {{ titre.numero|default:titre.id }}</p>
+
+                <form method="post" action="{% url 'ajouter_hypotheque' titre.id %}">
+                    {% csrf_token %}
+                    {{ hyp_form.as_p }}
+                    <button type="submit">Ajouter</button>
+                </form>
+            {% else %}
+                <p style="color:red;"> Ajouter d'abord un titre foncier</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- ===================== -->
+    <!-- PAIEMENT -->
+    <!-- ===================== -->
+    {% with hyp=titre.hypotheque_set.first %}
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+             Ajouter Paiement
+        </div>
+
+        <div class="section-content">
+            {% if hyp %}
+                <p class="info-ref"> Hypothèque ID: {{ hyp.id }}</p>
+
+                <form method="post" action="{% url 'ajouter_paiement' hyp.id %}">
+                    {% csrf_token %}
+                    {{ pay_form.as_p }}
+                    <button type="submit">Enregistrer paiement</button>
+                </form>
+            {% else %}
+                <p style="color:red;"> Ajouter d'abord une hypothèque</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endwith %}
+
+    <!-- ===================== -->
+    <!--  DOCUMENT -->
+    <!-- ===================== -->
+    <div class="section">
+        <div class="section-header" onclick="toggleSection(this)">
+             Ajouter Document
+        </div>
+
+        <div class="section-content">
+            {% if titre %}
+                <p class="info-ref"> Titre Foncier: {{ titre.numero|default:titre.id }}</p>
+
+                <form method="post" action="{% url 'ajouter_document' titre.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ doc_form.as_p }}
+                    <button type="submit">Uploader</button>
+                </form>
+            {% else %}
+                <p style="color:red;"> Ajouter d'abord un titre foncier</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% endwith %}
+
+</div>
+
+<!-- ===================== -->
+<!-- JS ACCORDION & CALENDRIER -->
+<!-- ===================== -->
+<script>
+function toggleSection(header) {
+    const allSections = document.querySelectorAll('.section-content');
+    
+    // Fermer tout
+    allSections.forEach(sec => sec.classList.remove('active'));
+
+    // Ouvrir celle cliquée
+    const content = header.nextElementSibling;
+    content.classList.add('active');
+}
+
+// ==========================================
+//  MAGIC: TRANSFORMATION EN CALENDRIER
+// ==========================================
+// Ce script cherche tous les champs texte dont le nom contient "date"
+// et les transforme automatiquement en calendrier HTML5.
+document.addEventListener("DOMContentLoaded", function() {
+    const inputs = document.querySelectorAll('input[type="text"]');
+    
+    inputs.forEach(function(input) {
+        // Si le nom du champ contient 'date' (ex: date_debut, date_paiement)
+        if (input.name && input.name.toLowerCase().includes('date')) {
+            input.type = 'date';
+        }
+    });
+});
+</script>
+
+</body>
+</html>
