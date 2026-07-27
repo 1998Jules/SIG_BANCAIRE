@@ -1,0 +1,301 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — SIF</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="topbar">
+    <div class="topbar-inner">
+        <div class="logo">
+        <img src="{% static 'images/logo.png' %}" height="40">
+        <div>
+            <span>Système d'information des hypothèques</span>
+        </div>
+    </div>
+        <div class="header-right">
+            <div class="header-date" id="currentDate"></div>
+            <div class="header-avatar">AD</div>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- CAROUSEL -->
+    <div class="carousel-wrapper">
+        <div class="carousel" id="carousel">
+            <div class="carousel-track" id="carouselTrack">
+
+                <div class="carousel-slide slide-1">
+                    <div class="slide-bg-shapes">
+                        <div class="shape shape-1"></div>
+                        <div class="shape shape-2"></div>
+                        <div class="shape shape-3"></div>
+                    </div>
+                    <div class="slide-content">
+                        <div class="slide-icon-wrap">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        </div>
+                        <div class="slide-text">
+                            <p class="slide-overline">Bienvenue</p>
+                            <h2>Votre tableau de suivi hypothécaire</h2>
+                            <p>Retrouvez en un coup d'œil l'ensemble de vos données foncières et financières.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-slide slide-2">
+                    <div class="slide-bg-shapes">
+                        <div class="shape shape-1"></div>
+                        <div class="shape shape-2"></div>
+                        <div class="shape shape-3"></div>
+                    </div>
+                    <div class="slide-content">
+                        <div class="slide-icon-wrap">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <div class="slide-text">
+                            <p class="slide-overline">Finance</p>
+                            <h2>Suivi financier en temps réel</h2>
+                            <p>Montants, paiements et restes à payer mis à jour automatiquement.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="carousel-slide slide-3">
+                    <div class="slide-bg-shapes">
+                        <div class="shape shape-1"></div>
+                        <div class="shape shape-2"></div>
+                        <div class="shape shape-3"></div>
+                    </div>
+                    <div class="slide-content">
+                        <div class="slide-icon-wrap">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                        </div>
+                        <div class="slide-text">
+                            <p class="slide-overline">Dossiers</p>
+                            <h2>Gérez vos dossiers efficacement</h2>
+                            <p>En attente, en cours ou remboursés — suivez chaque dossier pas à pas.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="carousel-controls">
+            <button class="carousel-btn" onclick="prevSlide()" aria-label="Précédent">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="carousel-dots" id="carouselDots">
+                <button class="dot active" onclick="goToSlide(0)"></button>
+                <button class="dot" onclick="goToSlide(1)"></button>
+                <button class="dot" onclick="goToSlide(2)"></button>
+            </div>
+            <button class="carousel-btn" onclick="nextSlide()" aria-label="Suivant">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- DONNÉES FONCIÈRES -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon-wrap blue">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <h2 class="section-title">Données foncières</h2>
+        </div>
+        <div class="grid grid-4">
+            <div class="card data-card parcelle">
+                <div class="card-top">
+                    <div class="data-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <div class="data-trend up">+12%</div>
+                </div>
+                <p class="data-value">{{ parcelles }}</p>
+                <p class="data-label">Parcelles</p>
+                <div class="data-bar"><div class="data-bar-fill parcelle-bar"></div></div>
+            </div>
+
+            <div class="card data-card proprietaire">
+                <div class="card-top">
+                    <div class="data-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <div class="data-trend up">+8%</div>
+                </div>
+                <p class="data-value">{{ proprietaires }}</p>
+                <p class="data-label">Propriétaires</p>
+                <div class="data-bar"><div class="data-bar-fill proprietaire-bar"></div></div>
+            </div>
+
+            <div class="card data-card titre">
+                <div class="card-top">
+                    <div class="data-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </div>
+                    <div class="data-trend up">+5%</div>
+                </div>
+                <p class="data-value">{{ titres }}</p>
+                <p class="data-label">Titres</p>
+                <div class="data-bar"><div class="data-bar-fill titre-bar"></div></div>
+            </div>
+
+            <div class="card data-card hypotheque">
+                <div class="card-top">
+                    <div class="data-icon">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    </div>
+                    <div class="data-trend down">-3%</div>
+                </div>
+                <p class="data-value">{{ hypotheques }}</p>
+                <p class="data-label">Hypothèques</p>
+                <div class="data-bar"><div class="data-bar-fill hypotheque-bar"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SITUATION FINANCIÈRE -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon-wrap green">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <h2 class="section-title">Situation financière</h2>
+        </div>
+        <div class="grid grid-3">
+            <div class="card finance-card montant">
+                <div class="finance-header">
+                    <div class="finance-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <span class="finance-badge bleu">TOTAL</span>
+                </div>
+                <p class="finance-value bleu-text">{{ total_montant }}</p>
+                <p class="finance-currency">FCFA</p>
+                <div class="finance-bar"><div class="finance-bar-fill bar-montant"></div></div>
+            </div>
+
+            <div class="card finance-card paye">
+                <div class="finance-header">
+                    <div class="finance-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <span class="finance-badge vert">PAYÉ</span>
+                </div>
+                <p class="finance-value vert-text">{{ total_paye }}</p>
+                <p class="finance-currency">FCFA</p>
+                <div class="finance-bar"><div class="finance-bar-fill bar-paye"></div></div>
+            </div>
+
+            <div class="card finance-card reste">
+                <div class="finance-header">
+                    <div class="finance-icon-wrap">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                    </div>
+                    <span class="finance-badge rouge">RESTE</span>
+                </div>
+                <p class="finance-value rouge-text">{{ reste }}</p>
+                <p class="finance-currency">FCFA</p>
+                <div class="finance-bar"><div class="finance-bar-fill bar-reste"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATUT DES DOSSIERS -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-icon-wrap orange">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h2 class="section-title">Statut des dossiers</h2>
+        </div>
+        <div class="grid grid-3">
+            <div class="card status-card attente">
+                <div class="status-header">
+                    <div class="status-pulse rouge-pulse"></div>
+                    <span class="status-badge-text rouge-text">En attente</span>
+                </div>
+                <div class="status-body">
+                    <p class="status-value">{{ en_attente }}</p>
+                    <svg class="status-bg-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.06"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <div class="status-footer">
+                    <div class="status-progress"><div class="status-progress-fill rouge-fill"></div></div>
+                </div>
+            </div>
+
+            <div class="card status-card encours">
+                <div class="status-header">
+                    <div class="status-pulse orange-pulse"></div>
+                    <span class="status-badge-text orange-text">En cours</span>
+                </div>
+                <div class="status-body">
+                    <p class="status-value">{{ en_cours }}</p>
+                    <svg class="status-bg-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.06"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                </div>
+                <div class="status-footer">
+                    <div class="status-progress"><div class="status-progress-fill orange-fill"></div></div>
+                </div>
+            </div>
+
+            <div class="card status-card rembourse">
+                <div class="status-header">
+                    <div class="status-pulse vert-pulse"></div>
+                    <span class="status-badge-text vert-text">Remboursé</span>
+                </div>
+                <div class="status-body">
+                    <p class="status-value">{{ rembourse }}</p>
+                    <svg class="status-bg-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.06"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                </div>
+                <div class="status-footer">
+                    <div class="status-progress"><div class="status-progress-fill vert-fill"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <p>&copy; 2026 Système Foncier — Tous droits réservés</p>
+</footer>
+
+<script>
+    const now = new Date();
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('currentDate').textContent = now.toLocaleDateString('fr-FR', options);
+
+    let currentSlide = 0;
+    const track = document.getElementById('carouselTrack');
+    const dots = document.querySelectorAll('.carousel-dots .dot');
+    const totalSlides = 3;
+    let autoplay;
+
+    function goToSlide(i) {
+        currentSlide = ((i % totalSlides) + totalSlides) % totalSlides;
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        dots.forEach((d, idx) => d.classList.toggle('active', idx === currentSlide));
+        resetAutoplay();
+    }
+
+    function nextSlide() { goToSlide(currentSlide + 1); }
+    function prevSlide() { goToSlide(currentSlide - 1); }
+    function resetAutoplay() { clearInterval(autoplay); autoplay = setInterval(nextSlide, 5000); }
+
+    resetAutoplay();
+</script>
+
+</body>
+</html>
