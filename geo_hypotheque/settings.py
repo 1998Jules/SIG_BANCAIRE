@@ -475,11 +475,20 @@ USE_TZ = True
 # STATIC FILES
 # ============================================================
 
+# ============================================================
+# STATIC FILES
+# ============================================================
+
 STATIC_URL = "/static/"
 
+# Dossier contenant les fichiers statiques de l'application
 STATICFILES_DIRS = [
     BASE_DIR / "hypobank" / "static"
 ]
+
+# Dossier de destination utilisé par collectstatic sur Render
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 
 
 # ============================================================
