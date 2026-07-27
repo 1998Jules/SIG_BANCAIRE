@@ -415,6 +415,10 @@ TEMPLATES = [
 # DATABASE
 # ============================================================
 
+# ============================================================
+# DATABASE
+# ============================================================
+
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 if DATABASE_URL:
@@ -425,6 +429,14 @@ if DATABASE_URL:
             conn_health_checks=True,
         )
     }
+
+    # IMPORTANT :
+    # L'application utilise GeoDjango et des champs spatiaux.
+    # Le backend doit donc être PostGIS.
+    DATABASES["default"]["ENGINE"] = (
+        "django.contrib.gis.db.backends.postgis"
+    )
+
 else:
     DATABASES = {
         "default": {
@@ -436,6 +448,7 @@ else:
             "PORT": "5432",
         }
     }
+
 
 
 # ============================================================
