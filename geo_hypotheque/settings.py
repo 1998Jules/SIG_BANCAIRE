@@ -372,6 +372,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -494,15 +496,20 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-# Dossier contenant les fichiers statiques de l'application
 STATICFILES_DIRS = [
-    BASE_DIR / "hypobank" / "static"
+    BASE_DIR / "hypobank" / "static",
 ]
 
-# Dossier de destination utilisé par collectstatic sur Render
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # ============================================================
 # MEDIA FILES
